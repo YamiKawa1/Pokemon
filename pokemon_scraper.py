@@ -15,10 +15,10 @@ pokemonRows = page_content.find_all("tr")
 pokemonDict = {}
 for row in pokemonRows[1:]:
     statsHtml = row.find_all("td")[4:]
-    statsArray = map(lambda data: int(data.text), statsHtml)
+    statsArray = list(map(lambda data: int(data.text), statsHtml))
+
     typesHtml = row.find_all("a", attrs={"class":"type-icon"})
-    
-    typesArray = map(lambda data: TYPES.index(data.text), typesHtml)
+    typesArray = list(map(lambda data: TYPES.index(data.text), typesHtml))
     
     name = row.find("a", attrs={"class":"ent-name"}).text
 
@@ -38,4 +38,4 @@ for row in pokemonRows[1:]:
         pokemonDict[name]["type2"] = typesArray[1]
     
 with open('db/pokemons.json', 'w') as outfile:
-    json.dump(pokemonDict, outfile)epidemix
+    json.dump(pokemonDict, outfile)
